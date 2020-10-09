@@ -16,7 +16,7 @@ Besides that, the React and Sinatra apps can be launched for development in thei
 
 ![diagram](https://i.imgur.com/qmfkprt.jpg)
 
-This app features a `create-react-app`-based React application which communicates with a Sinatra API server and uses MongoDB for persistence. 
+This app features a `create-react-app`-based React application which communicates with a Sinatra API server and uses MongoDB for persistence. The app uses [bulma.io](https://bulma.io) for basic stylesheets.
 
 A user is prompted to provide a url to minify. React frontend communicates with the API to either create or look up a hash corresponding to a particular URL and returns it to the user. 
 
