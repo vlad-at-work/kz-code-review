@@ -1,0 +1,11 @@
+.break-words {
+  word-break: break-all;
+}
+
+.shortened-link {
+  background:rgba(255,255,255, 0.5) !important;
+}
+
+.shortened-link strong {
+  color: #666;
+}

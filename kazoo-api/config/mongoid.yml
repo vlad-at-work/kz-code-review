@@ -1,0 +1,12 @@
+production:
+  clients:
+    default:
+      database: heroku_n9nhz5m1
+      hosts:
+        - mongo:27017
+development:
+  clients:
+    default:
+      database: heroku_n9nhz5m1
+      hosts:
+        - mongo:27017
