@@ -26,9 +26,9 @@ The frontend can display a rudimentary error message (though, the check happens 
 
 ### App Design
 
-There was no particular reason for choosing Sinatra over, Node/Express other than I felt like it would be a bit easier on the eyes given that API piece is lean. In the same vein, MongoDB is easy to bootstrap with no need for migrations as the data model isn't complicated.
+There was no particular reason for choosing Sinatra over Node/Express other than I felt like it would be a bit easier on the eyes given that API piece is lean. In the same vein, MongoDB is easy to bootstrap with no need for migrations as the data model isn't complicated.
 
-If this were a real app, an argument could be made for using Express.js for the backend and something like Redis for persistence - that combo would substantially improve concurrency. If the app would ever need authentication and subsequent persistence more complex than a key-value store, a cache like Redis wouldn't be a good choice. 
+If this was a real app, an argument could be made for using Express.js for the backend and something like Redis for persistence - that combo would substantially improve concurrency. If the app would ever need authentication and subsequent persistence more complex than a key-value store, a cache like Redis wouldn't be a good choice. 
 
 That being said, at scale, Redis would work well as a LRU cache for quick lookup of most commonly minified URLs.
 
