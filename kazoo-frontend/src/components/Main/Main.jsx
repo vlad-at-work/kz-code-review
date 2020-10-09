@@ -18,13 +18,11 @@ class Home extends React.Component {
   }
 
   minifyClickHandler = (newLinkResponse) => {
-    this.setState(state => {
-      const shortenedUrls = this.state.shortenedUrls.concat(newLinkResponse).reverse()
-      return {
-        hasError: false,
-        errorText: '',
-        shortenedUrls
-      };
+    const updatedUrls = [...this.state.shortenedUrls, newLinkResponse]
+    this.setState({
+      shortenedUrls: updatedUrls,
+      hasError: false,
+      errorText: ''
     })
   }
 
@@ -36,15 +34,6 @@ class Home extends React.Component {
   }
 
   render () {
-
-    const shortenedLinkElements = this.state.shortenedUrls.map((link) => {
-      return <ShortenedLink
-        key={link.id}
-        originalUrl={link.originalUrl}
-        slug={link.slug} />
-    })
-
-
     return (
       <section className="hero is-success is-fullheight">
         <div className="hero-body">
@@ -60,7 +49,9 @@ class Home extends React.Component {
 
                 {this.state.hasError ? <ErrorBox errorText={this.state.errorText} /> : null}
 
-                {shortenedLinkElements}
+                {this.state.shortenedUrls.map((entry) => (
+                  <ShortenedLink key={entry.id} originalUrl={entry.originalUrl} slug={entry.slug} />
+                ))}
 
               </div>
               <div className="column is-3"></div>

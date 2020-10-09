@@ -12,30 +12,40 @@ class Redirector extends React.Component {
       redirectTarget: ''
     }
   }
-  componentDidMount () {
-    ShortenerService.getTargetUrl(this.props.match.params.slug, (e, response) => {
-      if (e) {
-        this.setState({ noUrl: true })
-      } else {
-        this.setState({ redirectTarget: response.target_url })
 
-        // Redirecting here
-        setTimeout(() => {
-          window.location.href = response.target_url
-        }, 1000)
-      }
-    })
+  initiateRedirect(newUrl) {
+    // wee!
+    setTimeout(() => {
+      window.location.href = newUrl
+    }, 2000)
+  }
+
+  componentDidMount = async () => {
+    try {
+      const response = await ShortenerService.getTargetUrl(this.props.match.params.slug)
+      this.setState({ redirectTarget: response.data.target_url }) // display target url
+
+      // in a strange case where the saved url is blank
+      if (!response.data.target_url) throw new Error('Improper target url from API')
+      
+      this.initiateRedirect(response.data.target_url)
+    } catch(redirectException) {
+      this.setState({ noUrl: true }) // redirect to 404 if error response from API
+    }
   }
 
   render () {
-    const redirectMessage = <section className="hero is-default is-fullheight">
-      <div className="hero-body">
-        <div className="container has-text-centered">
-          <h2 className="title">You are being redirected to:</h2>
-          {this.state.redirectTarget ? <h2 className="subtitle">{this.state.redirectTarget}</h2> : '...'}
+    const redirectMessage = (
+      <section className="hero is-default is-fullheight">
+        <div className="hero-body">
+          <div className="container has-text-centered">
+            <h2 className="title">You are being redirected to</h2>
+            {this.state.redirectTarget ? <h2 className="subtitle">{this.state.redirectTarget}</h2> : ''}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    )
+
     return (
       this.state.noUrl ? <Redirect to="/404" /> : redirectMessage
     )

@@ -10,7 +10,9 @@ The app is hosted on Heroku over at [kazoo.vlad.ai](https://kazoo.vlad.ai/)
 
 If you'd like to run the app locally, I've included a `docker-compose.yml` file which should allow the app to be accessible locally on port `3000`. Disclaimer: To my shame, I haven't had the opportunity to work with Docker until now so I rate the probability of success at 50/50.
 
-Besides that, the React and Sinatra apps can be launched for development in their respective folders with `npm i && npm start` and `bundle install && bundle exec rackup app.rb -p 4567` respectively
+Besides that, the React and Sinatra apps can be launched for development in their respective folders with `npm i && npm start` and `bundle install && bundle exec rackup app.rb -p 4567` respectively.
+
+For rudimentary tests - `npm test`
 
 ### An exceptionally ugly diagram
 

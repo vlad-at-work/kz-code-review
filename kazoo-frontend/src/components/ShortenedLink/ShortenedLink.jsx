@@ -6,7 +6,7 @@ import CONFIG from '../../config/config'
 class ShortenedLink extends React.Component {
   render () {
     return (
-      <div className="box shortened-link  has-text-left">
+      <div className="box shortened-link has-text-left">
         <article className="media">
           <div className="media-content">
             <div className="content break-words">

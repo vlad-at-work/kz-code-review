@@ -1,6 +1,7 @@
 import React from 'react'
 
 import ShortenerService from '../../lib/ShortenerService'
+import CONFIG from '../../config/config'
 
 import './LinkInput.css'
 
@@ -22,20 +23,21 @@ class LinkInput extends React.Component {
 
   handleUrlInput = (e) => {
     this.setState({ inputUrl: e.target.value });
-
   }
 
-  minifyClick = () => {
+  minifyClick = async () => {
     this.toggleWorking()
-    ShortenerService.shortenUrl(this.state.inputUrl, (e, apiResponse) => {
-      // console.log(e, apiResponse)
-      if (e) {
-        this.props.triggerError(e)
+    try {
+      const response = await ShortenerService.shortenUrl(this.state.inputUrl)
+      this.props.minifyClickHandler(response.data)
+    } catch (shortenException) {
+      if (shortenException.response.status === 400) {
+        this.props.triggerError(CONFIG.ERRORS.MALFORMED_URL)
       } else {
-        this.props.minifyClickHandler(apiResponse)
+        this.props.triggerError(CONFIG.ERRORS.NETWORK_ERROR)
       }
-      this.toggleWorking()
-    })
+    }
+    this.toggleWorking()
   }
 
   render () {
@@ -43,10 +45,10 @@ class LinkInput extends React.Component {
       <div className="input-group">
         <div className="field has-addons">
           <div className="control is-expanded">
-            <input className="input" type="text" placeholder="Paste the url to shorten here" onChange={this.handleUrlInput} />
+            <input id="url-input" className="input" type="text" placeholder="Paste the url to shorten here" onChange={this.handleUrlInput} />
           </div>
           <div className="control">
-            <button className={`button is-warning ${this.state.working ? 'is-loading' : ''}`} onClick={this.minifyClick}>
+            <button id="submit-url" className={`button is-warning ${this.state.working ? 'is-loading' : ''}`} onClick={this.minifyClick}>
               <i className="fas fa-cut"></i>
             </button>
           </div>
